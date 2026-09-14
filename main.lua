@@ -7,6 +7,9 @@ function love.load()
         vx = 0,
         vy = 0
     }
+    
+    windowWidth = love.graphics.getWidth()
+    windowHeight = love.graphics.getHeight()
 end
 
 function love.update(dt)
@@ -31,6 +34,23 @@ function love.update(dt)
     
     circle.x = circle.x + circle.vx * dt
     circle.y = circle.y + circle.vy * dt
+    
+    -- Keep circle inside screen borders
+    if circle.x - circle.radius < 0 then
+        circle.x = circle.radius
+    end
+    
+    if circle.x + circle.radius > windowWidth then
+        circle.x = windowWidth - circle.radius
+    end
+    
+    if circle.y - circle.radius < 0 then
+        circle.y = circle.radius
+    end
+    
+    if circle.y + circle.radius > windowHeight then
+        circle.y = windowHeight - circle.radius
+    end
 end
 
 function love.draw()
